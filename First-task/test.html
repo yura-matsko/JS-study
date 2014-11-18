@@ -3,7 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<title>Test</title>
-	<link media="all" rel="stylesheet" href="css/all.css">
 	<style type="text/css">
 		body{
 			margin: 0;
@@ -71,17 +70,21 @@
 		.input-form input[type="text"]:focus{
 			border-radius: 3px 3px 0 0;
 		}
+		.active-form .error-note,
 		.input-form input[type="text"]:focus + .note{
 			bottom: -34px;
+		}
+		.active-form .note{
+			bottom: 0;
 		}
 	</style>
 </head>
 <body>
 	<noscript>Javascript must be enabled for the correct page display</noscript>
-	<form class="input-form" action="#">
+	<form class="input-form" id="form" action="#">
 		<fieldset>
 			<div class="row">
-				<input type="text">
+				<input id="input" type="text">
 				<span class="note">Write progression using coma</span>
 				<span class="miss-note">You miss <i></i></span>
 				<span class="error-note">You need to write no less than 3 numbers!</span>
@@ -89,6 +92,15 @@
 		</fieldset>
 	</form>
 	<script>
+		document.getElementById('input').onchange = function() {
+			var form = document.getElementById('form'),
+				arr = [],
+				inputString;
+			inputString = document.getElementById('input').value;
+			arr = inputString.split(',').map(Number);
+			console.log(arr.length);
+			return arr
+		}
 		var fun = function (arr){
 			var number = [],
 				max = 0,
@@ -106,17 +118,15 @@
 			min = Math.min.apply(Math, number);
 			value = number.indexOf(max);
 
-			console.log(arr[arr.length - 1])
 			if (arr[value] >= 0 && max != min) {
 				missValue = arr[value] + min;
 			} else if(max === min){
-				missValue = arr[arr.length - 1] + max;
+				missValue = arr[arr.length - 1] + min;
 			} else{
 				missValue = arr[value] - min;
 			};
 			return missValue
 		}
-
 
 	</script>
 </body>
