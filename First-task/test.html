@@ -2,13 +2,92 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Bazaar</title>
+	<title>Test</title>
 	<link media="all" rel="stylesheet" href="css/all.css">
-	<script src="js/jquery-1.10.2.min.js"></script>
-	<script src="js/jquery.main.js"></script>
+	<style type="text/css">
+		body{
+			margin: 0;
+			font: 14px/1.1 Georgia, sans-serif;
+		}
+		body,
+		html{
+			height: 100%;
+		}
+		.input-form{
+			height: 100%;
+			text-align: center;
+		}
+		.input-form:before{
+			content: '';
+			min-height: 100%;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.input-form fieldset{
+			border: 0;
+			padding: 0;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.input-form .row{
+			position: relative;
+		}
+		.input-form input[type="text"]{
+			display: block;
+			width: 300px;
+			height: 24px;
+			padding: 5px 10px;
+			font-size: 14px;
+			line-height: 100%;
+			outline: none;
+			background: #fff;
+			border-radius: 3px;
+			border: 2px solid #ccc;
+			position: relative;
+			z-index: 2;
+			transition: border-radius ease-out 0.5s;
+		}
+		.input-form [class*="note"]{
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 1;
+			color: #fff;
+			font-weight: bold;
+			padding: 5px 10px;
+			line-height: 24px;
+			background: #449d44;
+			border-radius: 0 0 3px 3px;
+			font-size: 12px;
+			transition: bottom ease-out 0.5s;
+		}
+		.input-form .miss-note{
+			background: #f0ad4e;
+		}
+		.input-form .error-note{
+			background: #d9534f;
+		}
+		.input-form input[type="text"]:focus{
+			border-radius: 3px 3px 0 0;
+		}
+		.input-form input[type="text"]:focus + .note{
+			bottom: -34px;
+		}
+	</style>
 </head>
 <body>
 	<noscript>Javascript must be enabled for the correct page display</noscript>
+	<form class="input-form" action="#">
+		<fieldset>
+			<div class="row">
+				<input type="text">
+				<span class="note">Write progression using coma</span>
+				<span class="miss-note">You miss <i></i></span>
+				<span class="error-note">You need to write no less than 3 numbers!</span>
+			</div>
+		</fieldset>
+	</form>
 	<script>
 		var fun = function (arr){
 			var number = [],
@@ -27,14 +106,17 @@
 			min = Math.min.apply(Math, number);
 			value = number.indexOf(max);
 
-			if (arr[value] >= 0) {
+			console.log(arr[arr.length - 1])
+			if (arr[value] >= 0 && max != min) {
 				missValue = arr[value] + min;
+			} else if(max === min){
+				missValue = arr[arr.length - 1] + max;
 			} else{
 				missValue = arr[value] - min;
 			};
 			return missValue
 		}
 
-		alert(fun([1, 4, 10]));
+
 	</script>
 </body>
